@@ -668,6 +668,20 @@ a:hover {
     transform: none;
 }
 
+/* All Done Button Container */
+.all-done-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    margin-top: 20px;
+}
+
+.all-done-container .done-btn {
+    width: 50%;
+    max-width: 500px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero h1 {

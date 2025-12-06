@@ -159,8 +159,29 @@
     document.querySelectorAll(".done-btn[data-all-done]").forEach((btn) => {
       btn.addEventListener("click", function (e) {
         e.stopPropagation();
+        const currentModal = this.closest(".modal");
+        if (currentModal) {
+          closeModalAndOpenConfirmation(currentModal.id);
+        } else {
+          // Button is outside modal (in timeline), open confirmation directly
+          openModal("confirmation-modal");
+        }
+      });
+    });
+
+    // Done button - scroll to all done
+    document.querySelectorAll(".done-btn[data-scroll-to-all-done]").forEach((btn) => {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
         const currentModal = this.closest(".modal").id;
-        closeModalAndOpenConfirmation(currentModal);
+        closeModal(currentModal);
+
+        setTimeout(() => {
+          const allDoneBtn = document.querySelector(".done-btn[data-all-done]");
+          if (allDoneBtn) {
+            allDoneBtn.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 300);
       });
     });
 
@@ -282,9 +303,6 @@
           submitBtn.textContent = originalText;
           submitBtn.style.background = "";
           closeModal("confirmation-modal");
-          alert(
-            "Thank you! Your confirmation has been submitted successfully."
-          );
         }, 2000);
       })
       .catch((error) => {
